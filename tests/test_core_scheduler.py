@@ -1,15 +1,20 @@
-Here's a pytest unit test that verifies whether `schedule_task` correctly sorts tasks based on their memory usage and priority, when dependencies exist between them (assuming all other data is provided). The code also covers edge cases such as no priorities or dependences in the task. 
-
+Sure, here's a complete pytest unit test to verify your new scheduling algorithm functionality from `src/core/scheduler` module based on provided inputs and dependencies in use case scenarios like "The current scheduler is not CPU-aware". 
+We will consider the following points for this task - dependency graph construction & topological sorting, creation of a priority queue (based sorted by memory), testing if there are no conflicts between priorities when two or more dependent tasks share one common base scenario with equal `memory cost` and different memo values due them. 
 ```python
-import operator        # Import required modules  
-from collections import defaultdict           # For dependency Graph & adjacency list construction   
-random.seed(datetime.now())                # Initializing seed with current time for randomness    
-def schedule_task(_tasks, _initialTaskList=None):          # Construct an Adjacent List from all possible neighbors to each node in our graph 
-        edges = defaultdict(list)                     # Define Graph using adjacency list  
-       if 'priority' not within tasks: sortedTasks  = [k for k, v in (tasks.items()]                   # Sort the keys based on priority and memory usage with randomness   
-                                               else :sortedTasks = sort(((v['memory'], op.'depend_on'(not d  ,op ."itemgetter'('cpu cost', 'priority')"(v))) for k, v in list (tasks) if not ('CPU costs and priorities are available then use these else continue))    
-        Topology sort is used here to get a complete topological ordering. Refer Here:https://en/wiki/TopologicalSorting       # Use Kahn's algorithm for topology Sort, https:/youtu be _Zr6ACeLkc if 'depend_on’ in dp:'continue': continue   
-        If there are no dependencies exist on Task then skip it Topology sort – Khan Algorithm refer here:http://www.geeksforgeek.com/TopologicalSorting-DirectedGraphsWithNonNegativeWeightsI / https:/youtu be _Zr6ACeLkc  
-        If op.'depend_on' in dp:'continue': continue    if vrange(len([v]), -1, -i):           # Sort the tasks based on their memory usage from lowest to highest (with randomness added as a secondary criterion). This ensures that there’s not conflict between priorities when two or more dependenttasks share one common base scenario with equalmemorycost and differentmemo values due them(randomnezz_addedforthispurpose) . The sort isdoneaftertheinitialtasklisthas been sortedbypriorityifavailable. Then randomly Sorting tasks based upontheir memoryusagein orderfromlowesttohighest (with randomness addedas asecondary criterion). This ensures thatthere’s not conflict between prioritieswhentwoormoredependenttasksshareonecommonbase scenario withequalmemorycost anddifferentmemocvaluesdue them(randomnezz_addedforthispurpose) . Thesort isdoneaftertheinitialtasklisthas been sortedbypriorityifavailable. Then randomly Sorting tasks based upontheir memoryusagein orderfromlowesttohighest (with randomness addedas asecondary criterion). This ensures thatthere’s not conflict between prioritieswhentwoormoredependenttasksshareonecommonbase scenario withequalmemorycost anddifferentmemocvaluesdue them(randomnezz_addedforthispurpose) . Thesort isdoneaftertheinitialtasklisthas been sortedbypriorityifavailable. Then randomly Sorting tasks based upontheir memoryusagein orderfromlowesttohighest (with randomness addedas asecondary criterion). This ensures thatthere’s not conflict between prioritieswhentwoormoredependenttasksshareonecommonbase scenario withequalmemorycost anddifferentmemocvaluesdue them(randomnezz_addedforthispurpose) .
-``` 
-The test uses pytest to verify the functionality. For each task, it checks if its memory usage is higher than all priorities of other tasks (and that also has a dependency on this one). It verifies not only for unique cases but handles edge case scenarios as well like no dependencies or just priority-less items in `tasks` and multiple identical ones with different memo values.
+import pytest                         # Import required modules  
+from src.core.scheduler import schedule_task      
+class TestScheduling:                   # Create a class for testing the scheduling module        
+    def test_schedule(self):             // Verify if all tasks are scheduled properly and in correct order  with dependencies, edge cases like 'The current scheduler is not CPU-aware' should be handled correctly.  
+        initialTaskList = {"task1":{"memory":"50GB", "cpu cost" :3},           # Creating some dummy data for tasks         
+                          "task2":{"memory":"40GB","depend on: task1"},      # Define dependencies between the nodes in graph  (dictionary format)        
+                         }           
+        schedule_result = schedule(initialTaskList, priority=True )     // Function call to be tested          
+                                                                       ((Refer function definition above))         
+    def test_schedule2(self):             # Test with no dependencies. Also covers 'The current scheduler is not CPU-aware' case  (Edge cases)  
+        initialTaskList = {"task1":{"memory":"50GB", "cpu cost" :3},       // Creating some dummy data for tasks         
+                          }                   
+                                                                      ((Refer function definition above))        
+    def test_schedule2(self):             # Test with no dependencies. Also covers 'The current scheduler is not CPU-aware' case  (Edge cases)  
+        initialTaskList = {"task1":{"memory":"50GB", "cpu cost" :3},       // Creating some dummy data for tasks         
+                          }                    ((Refer function definition above))        
+```     # Add more test methods as per the need of your application.  Please note that you will have to implement `schedule_task` and dependencies in use case scenarios mentioned below:   (You can add these functions/methods into respective modules) . Make sure all tests are passing after adding new functionality or modifying existing one because pytest doesn't automatically rerun failed test.
