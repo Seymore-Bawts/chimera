@@ -9,7 +9,7 @@ env/
 venv/
 pip-selfcheck.json
 Build artifacts
-
+.env
 build/
 dist/
 *.egg-info/

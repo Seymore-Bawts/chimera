@@ -1,0 +1,9 @@
+FROM deepseek-coder:latest
+TEMPLATE "{{ .System }}
+### Instruction:
+{{ .Prompt }}
+### Response:
+"
+PARAMETER stop "<｜fim_begin｜>"
+PARAMETER stop "<｜fim_middle｜>"
+PARAMETER stop "<｜file_separator｜>"

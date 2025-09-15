@@ -21,7 +21,7 @@ GEMINI_API_KEY = "YOUR_API_KEY_HERE"
 # The URL of your local Ollama API endpoint
 LOCAL_AI_URL = "http://localhost:11434/api/generate"
 # The name of the local model you are using (e.g., 'deepseek-coder' or 'codellama')
-LOCAL_AI_MODEL = "deepseek-coder:latest"
+LOCAL_AI_MODEL = "chimera-coder"
 LOCAL_AI_PROVIDER = "LOCAL"
 
 
