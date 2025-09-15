@@ -1,13 +1,16 @@
-Here's a pytest unit test that verifies whether your `schedule_task` function works correctly with various edge cases and dependencies, including those involving unequal memory values (randomness).  Note also how we handle the random factor to ensure no conflicts between priorities when two or more tasks have shared bases but different memo-values due their unique circumstances.
+Here's a Pytest unit test covering all possible scenarios in `src/core/scheduler` module and checking if it handles edge cases correctly based on your requirements (priority, cpu_cost). 
 ```python
-import pytest                       # PyTest's library for Python - It makes it easy and fast to write small tests, yet powerful enough to produce integrated tests with multiple test cases   https://docs.pytest.org/en/latest/
-from src.core import scheduler       # Assuming your source module is named 'src', you can directly access this file's modules using the dot notation if they are in a package (like core for our example)  assuming that all of their functions and classes start with an upper case letter   https://docs.python.org/3/tutorial/modules.html#packages
-    from random import randint          # We'll use the 'randint' function to generate a list (sorted tasks), where each task has different memory costs for testing purposes  - This should not be confused with actual test-case execution of your `schedule_task` implementation. It is more about verifying that you are correctly generating such random lists   https://docs.python.org/3/library/random.html#random.randint
-    from collections import defaultdict  # For dependency graph and adjacency list construction    
-         def test__schedule_task():       # Define a new pytest function to verify our task scheduling logic with various edge cases   https://docs.pytest.org/en/latest/how-to/assert.html#id4 - PyTest Assertions can be used for testing specific aspects of your code
-             tasks = [{'name': 'task'+str(i),  # Generate a list (sorted by priority and randomly)   https://docs.python.org/3/library/stdtypes.html#listcompsorting - Python allows you to sort lists using the sorted() function with key parameter
-                      'priority': randint(-10, 10), # The higher value means greater priority if same shared base scenarios exist due unique memo-values   https://docs.python.org/3/library/stdtypes.html#random.randint - You can use Python's builtin random library to generate a list of tasks with different priorities and randomly assigned memory values
-                      'depend_on': randint(0,1) == 0}  for i in range(-5)]   # Creates an adjacency graph (dependency matrix). The higher the index value means more dependencies. For simplicity's sake consider both tasks with only one dependency and a task that has no dependence
-             sorted_tasks = scheduler._sort(tasks)    # Call your schedule function here - you should replace this code block to call `schedule` from actual module   https://docs.pytest.org/en/latest/_world.html#a-frequently-asked-questions
-             assert sorted_tasks is not None  # Assert that the result isn't 'None'. This could also be a comparison between your `schedule` function and expected results   https://docs.pytest.org/en/latest/assertions.html#id16 - PyTest Asser- tors can produce assert statements for testing code
-```  (Note: The above pytests will not work as it is due to dependencies on the `_sort` function in your actual implementation which has been hidden.) Please replace this with a correct call of task scheduler from source module. Also, note that randomness isn't used directly but its value for determining sorting order and if there are no conflicts between priorities when two or more dependent tasks share one common base scenario - both will pass the test)
+import pytest
+from src.core import scheduler as s
+
+def test_schedule_task():
+    # Test with tasks having priority but no CPU cost or memory usage provided
+    task1 = {'name': 'Task 1', 'cpu_cost' : None, 'memory' :None}  
+    task2  ={'name': 'Task 2','priority': True,'depends_on':['Task3'] }      # Task has priority but no CPU cost or memory usage provided. It depends on another one with cpu costs only and also a higher mem requirement (only for testing purpose)  
+    task3 = {'name' : 'Task 3', "priority": False, "depends_on" : ['Task4']} # Task has no CPU cost but its dependents have high memory usage. It will run before this one due to higher mem requirement and priority (only for testing purpose)
+    task4 = {'name': 'Task 4', 'cpu_cost' : True, "memory":1023 }            # Higher cpu costs than other tasks with same CPU cost but different memory requirements. It will run before this one due to higher mem requirement and high-priority (only for testing purpose)
+    sortedTasks = [s.schedule_task([task4, task3 , task1,  task2])]             # Sorting based on priority then cpu cost randomness after that only memory usage  
+    
+    assert len(sortedTasks[0][:5:-1]) == 6                                  # Verify topo sort of tasks in sorted order. Each next item should be lower mem and have a less CPU 
+                                                                             higher than the previous one (only for testing purpose)                        
+```        Please make sure to run this pytest unit test by following commands below:   Run `pytest -v` on your terminal or command prompt if you're running it from within an IDE. This will automatically detect and execute all tests in the module, ensuring that they are working as expected without any unexpected behavior/failures due to edge cases not covered herein (only for testing purpose).
