@@ -1,0 +1,24 @@
+Python artifacts
+
+pycache/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+pip-selfcheck.json
+Build artifacts
+
+build/
+dist/
+*.egg-info/
+downloads/
+eggs/
+Local files
+
+.DS_Store
+*.local
+Chimera specific
+
+evolution_log.json
