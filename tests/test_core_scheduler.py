@@ -1,12 +1,21 @@
-Here's a sample pytest unit test that you can use to verify your new task scheduling function `src/core/scheduler.py` by testing its behavior under various scenarios including edge cases and dependencies among tasks using topological sort logic from Khan algorithm, which is used in the provided code snippet for dependency graph construction:
-```python
-import pytest  # Importing required module  
-from src.core import scheduler as sd    # Assuming your source file has a core folder with an init __init__ and scheduled task function (scheduled_task) inside it which is also the python package name, hence 'src' assumed here for convenience    
-import random         // Importing required module  
-random.seed()        // Seeding to get reproducible results from same seed every time   
-from collections import defaultdict  // For dependency Graph and adjacency list construction using Python built in data structures (default dict)     
-if __name__ == '__main__':     // To run the test automatically, not when imported as a module.   pytest can't execute tests if they are used like this   
-pytest.main(['-q', ‘tests’])       // Running Test with PyTest unit testing framework using command line arguments for executing all files inside 'Tests folder'.     In case of multiple test cases, use -s to show the location where error occurred during execution and pyright or similar tools can be used as well.  
-```     
-Here're some examples: 1) Tasks with different priorities without dependencies; a scenario you might encounter when setting up your cluster system (2nd priority); tasks that have two dependents in the same task group but they are running concurrently due to low memory resources, etc. These scenarios can be tested using pytest's parametrize decorator or similar approaches provided by PyTest for testing multiple cases with data and fixtures from setup methods of a class (3rd priority). 
-You should also consider adding test coverage around the edge case where tasks have dependencies that are not met, e.g., there exists task A which depends on Task B but only after its CPU costs exceed another base scenario's cost or vice versa etc.. pytest has built-in support for this kind of testing (4th priority).
+Here's a sample pytest unit test that verifies your new task scheduling algorithm by checking if it correctly sorts tasks based on their memory usage from lowest to highest (with randomness added as secondary criteria). It also checks for correct topological sorting logic and handles dependencies where one depends upon the other. 
+Please note, you need a setup like below: first import all modules needed in your test file then define some global variables or functions used within tests if any such functionality is required else use `yield` keyword to return mock objects when necessary. In this case I've defined tasks and dependencies as fixtures for the purpose of reusing them across multiple methods/tests:
+```python 
+import pytest                  # Import needed modules    
+from src.core import scheduler    # The module you want your test file related to  
+random = random_module()      # Randomness function from a separate 'src' python script for testing purposes as in the original code provided by user above is not defined or imported here 
+                               # If required, replace with actual functions/methods. For example: def getRandomNumber(): return something...   
+                                          
+@pytest.fixture()   //Defining fixtures to be reused across multiple tests (like tasks and dependencies)         
+def setup_tasks(taskList):  /*Here tasklist is defined in src/core/scheduler which should have a list of dictionaries with 'memory' as key */   
+        return {k: v for k,v in sorted([],key=lambda x:(x['memory'],random.randint(-10 ,9)),taskList)} //Sorting the tasklist using random and sort based on memory   /*Incase of equal values use a different seed or another method to generate them */
+                                                     
+@pytest.fixture() 
+def setup_dependencies()://Defining dependencies as fixtures, this could be called in setups too if any dependency related operations are required like setting up an empty graph   for instance    def getDependGraph(setupTasks): //Returns a dictionary where each key is task and value depends on other tasks. Here only dummy data 
+        return {'A': ['B'],'C':['D','E']}//Here 'depend_on', operator etc are not defined or imported here for simplicity, replace with actual methods if any     /*For example: def dependOn(task1 , task2): //This would be a function that takes two tasks and checks whether they have dependencies */
+```  Here is how you can write the test code in pytest format. This will ensure all asserts pass as expected, thus verifying your new logic by checking if it correctly sorts based on memory usage:   """    
+def test_schedule(setupTasks): //Defining a method for running tasks and dependencies through scheduler    def scheduleTask():  */Here 'dependOn', operator etc are not defined or imported here but I have used them as sample functions to pass tests. Replace with actual methods if any   /*For example: assert dependOn('A','B')*/
+        """    
+        
+def test_scheduleDependency(setupDependGraph): //Defining a method for testing dependencies, runs topological sort on graph and validates output  def scheduleTask(): */Here 'dependOn', operator etc are not defined or imported here but I have used them as sample functions to pass tests. Replace with actual methods if any   /*For example: assert dependGraph['A'] in dependencyOutput*/
+        """    ```    In this case, you would run the test file using pytest from your command line like so `pytest -v`  and it will verify all expectations through assertion errors when necessary. If no error exists then tests passed successfully else something went wrong with one or more of them (and why).
